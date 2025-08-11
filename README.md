@@ -41,6 +41,12 @@ The general objective of this edition of the Summer School in **biodiversity mod
   * What are the libraries and tools to use
   * What is the workflow
 
+* Create technical documentation for students and future users
+  * A guide to install and run the model
+  * A guide to modify the model using input data and parameters
+  * A guide to modify the c++ processes of the model
+  * A guide to run the model on a HPC
+  
 ## Resources
 
 [Biodiversity Modelling Summer School 2025 website](https://bios2.usherbrooke.ca/2025/05/12/2025-summer-school-in-biodiversity-modelling/)

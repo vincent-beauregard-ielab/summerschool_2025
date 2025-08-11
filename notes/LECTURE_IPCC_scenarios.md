@@ -125,3 +125,5 @@ E. Black Box Models (Rare in IPCC Use)
 * [Scenarios in IPCC assessments: lessons from AR6 and opportunities for AR7](https://www.nature.com/articles/s44168-023-00082-1)
   
 * [IPCC Scenarios Data Explorer](https://ourworldindata.org/explorers/ipcc-scenarios)
+
+* [Carbon brief: Socioeconomic Pathways Explainer](https://www.carbonbrief.org/explainer-how-shared-socioeconomic-pathways-explore-future-climate-change/)
