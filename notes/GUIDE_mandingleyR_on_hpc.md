@@ -17,22 +17,17 @@ Before diving in, read these to understand the system you’re on:
 
 ## 2. Create working folders
 
+This guide assumes usage of `$HOME` for simplicity. However, consider using `$PROJECT` for running simulations for better performance and sharing.
+
 SSH into Cedar and run:
 
-Set up your project directory structure on Cedar.
 ```bash
-# export PROJECT=def-your_account  # Replace with your project allocation
-ls $HOME/links/projects # Check links to your projects allocation
-export ACCOUNT=def-your_account  # Replace with your project allocation
-export PROJECT=$HOME/links/projects/def-your_account/$USER  # Replace with desired project path in your project allocation
-```
-
-```bash
-mkdir -p $PROJECT/madingley/{code,r-lib}
+mkdir -p $HOME/biodiversity_modelling_2025/{code,r-lib}
 mkdir -p $SCRATCH/madingley_out
 ```
 
-* **\$PROJECT** → for R packages & code (shared, persistent)
+* **\$HOME** → for personal scripts and R packages (persistent)
+* **\$PROJECT** → for shared R packages & code (shared, persistent, performant)
 * **\$SCRATCH** → for simulation output (large files, temporary)
 
 
@@ -50,9 +45,7 @@ module spider gdal proj geos
 Then load them (adjust version if newer):
 
 ```bash
-module load StdEnv/2023
-module load r/4.5.0
-module load gdal proj geos
+module load r gcc gdal udunits
 ```
 
 📖 [Alliance – Using modules](https://docs.alliancecan.ca/wiki/Using_modules)
@@ -60,10 +53,10 @@ module load gdal proj geos
 
 ## 4. Tell R where to install your packages
 
-Set the R library path to your `$HOME$` space so jobs can find them:
+Set the R library path to your `$HOME` space so jobs can find them:
 
 ```bash
-echo 'R_LIBS_USER="'"$PROJECT/madingley/r-lib"'"' >> ~/.Renviron
+echo 'R_LIBS_USER="'"$HOME/biodiversity_modelling_2025/r-lib"'"' >> ~/.Renviron
 ```
 
 
@@ -90,7 +83,7 @@ q()
 ## 6. Create your first simulation script
 
 Save this as:
-`$PROJECT/madingley/code/case1.R`
+`$HOME/biodiversity_modelling_2025/code/case1.R`
 
 ```r
 library(MadingleyR)
@@ -113,7 +106,7 @@ saveRDS(mdata2, file.path(out_dir, "case1_results.rds"))
 📖 [Alliance – Running jobs with Slurm](https://docs.alliancecan.ca/wiki/Running_jobs)
 
 Save this as:
-`$PROJECT/madingley/code/run_case1.sbatch`
+`$HOME/biodiversity_modelling_2025/code/run_case1.sbatch`
 
 ```bash
 #!/bin/bash
@@ -122,13 +115,12 @@ Save this as:
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=8G
 #SBATCH --output=%x-%j.out
-#SBATCH --account=def-ACCOUNT   # Replace with your allocation
+#SBATCH --account=def-dgravel   # Replace with your allocation
 
 module load StdEnv/2023
-module load r/4.4.1
-module load gdal proj geos
+module load r gdal
 
-Rscript "$PROJECT/madingley/code/case1.R"
+Rscript "$HOME/biodiversity_modelling_2025/code/case1.R"
 ```
 
 
